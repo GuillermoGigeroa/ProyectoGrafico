@@ -1,0 +1,6 @@
+*.gigeroa
+*.depend
+*.layout
+bin/
+obj/
+
