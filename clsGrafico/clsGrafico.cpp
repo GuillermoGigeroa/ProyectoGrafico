@@ -3,29 +3,31 @@
 #include <iostream>
 #include <iomanip>
 #include <windows.h>
+#include <stdio.h>
+#include <conio.h>
 using namespace std;
 using std::setw;
 using std::left;
-//10x15
+
 clsGrafico::clsGrafico(int x, int y, int vel)
 {
     SetX(x);
     SetY(y);
     SetVelocidad(vel);
-    CompletarCadena(cuadrado);
+    CompletarCadena(cuadrado, ' ');
 }
 
 void clsGrafico::Dibujar()
 {
     system("cls");
-    cout<<endl<<endl<<endl<<endl;
-    for(int x = 0; x < 10; x++)
+    cout<<setw(30)<<left<<' '<<" GigeroaBlack"<<endl<<endl<<endl;
+    for(int x = 0; x < FILAS; x++)
     {
         cout<<setw(30)<<left<<' ';
-        for(int y = 0; y < 15; y++)
+        for(int y = 0; y < COLUMNAS; y++)
         {
             if(x == GetX() && y == GetY())
-                cout<<'o';
+                cout<<'0';
             else
                 cout<<cuadrado[x][y];
         }
@@ -37,10 +39,10 @@ void clsGrafico::Dibujar(char a)
 {
     system("cls");
     cout<<endl<<endl<<endl<<endl;
-    for(int x = 0; x < 10; x++)
+    for(int x = 0; x < FILAS; x++)
     {
         cout<<setw(30)<<left<<' ';
-        for(int y = 0; y < 15; y++)
+        for(int y = 0; y < COLUMNAS; y++)
         {
             if(x == GetX() && y == GetY())
                 cout<<a;
@@ -84,9 +86,9 @@ void clsGrafico::Arriba(int cant)
 
 void clsGrafico::Abajo()
 {
-    if(GetX()+1 > 9)
+    if(GetX()+1 > FILAS - 1)
     {
-        SetX(9);
+        SetX(FILAS - 1);
     }
     else
     {
@@ -100,9 +102,9 @@ void clsGrafico::Abajo(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        if(GetX()+1 > 9)
+        if(GetX()+1 > FILAS - 1)
         {
-            SetX(9);
+            SetX(FILAS);
         }
         else
         {
@@ -115,9 +117,9 @@ void clsGrafico::Abajo(int cant)
 
 void clsGrafico::Derecha()
 {
-    if(GetY()+1 > 14)
+    if(GetY()+1 > COLUMNAS - 1)
     {
-        SetY(14);
+        SetY(COLUMNAS - 1);
     }
     else
     {
@@ -131,9 +133,9 @@ void clsGrafico::Derecha(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        if(GetY()+1 > 14)
+        if(GetY()+1 > COLUMNAS - 1)
         {
-            SetY(14);
+            SetY(COLUMNAS);
         }
         else
         {
@@ -175,37 +177,37 @@ void clsGrafico::Izquierda(int cant)
     }
 }
 
-void clsGrafico::CompletarCadena(char cuadrado[10][15])
+void clsGrafico::CompletarCadena(char cuadrado[FILAS][COLUMNAS])
 {
-    for(int x = 0; x < 10; x++)
+    for(int x = 0; x < FILAS; x++)
     {
-        for(int y = 0; y < 15; y++)
+        for(int y = 0; y < COLUMNAS; y++)
         {
             cuadrado[x][y] = ' ';
         }
-        cuadrado[x][14] = '\0';
+        cuadrado[x][COLUMNAS - 1] = '\0';
     }
 }
 
-void clsGrafico::CompletarCadena(char cuadrado[10][15], char a)
+void clsGrafico::CompletarCadena(char cuadrado[FILAS][COLUMNAS], char a)
 {
-    for(int x = 0; x < 10; x++)
+    for(int x = 0; x < FILAS; x++)
     {
-        for(int y = 0; y < 15; y++)
+        for(int y = 0; y < COLUMNAS; y++)
         {
             cuadrado[x][y] = a;
         }
-        cuadrado[x][14] = '\0';
+        cuadrado[x][COLUMNAS - 1] = '\0';
     }
 }
 
-void clsGrafico::Escribir(char cuadrado[10][15])
+void clsGrafico::Escribir(char cuadrado[FILAS][COLUMNAS])
 {
     cout<<endl<<endl<<endl<<endl;
-    for(int x = 0; x < 10; x++)
+    for(int x = 0; x < FILAS; x++)
     {
         cout<<setw(30)<<left<<' ';
-        for(int y = 0; y < 15; y++)
+        for(int y = 0; y < COLUMNAS; y++)
         {
             cout<<cuadrado[x][y];
         }
@@ -216,4 +218,49 @@ void clsGrafico::Escribir(char cuadrado[10][15])
 void clsGrafico::Esperar(int ms)
 {
     Sleep(ms);
+}
+
+void clsGrafico::DetectarTeclado()
+{
+    /*
+    op=getch();
+    printf("%i\n",op);
+    return 0;
+    */
+    int op = 0;
+    while (op != 174126541)
+    {
+        op=getch();
+        switch (op)
+        {
+            case 72:///Flecha arriba
+                {
+                    Arriba();
+                }break;
+            case 75:///Flecha izquierda
+                {
+                    Izquierda();
+                }break;
+            case 77:///Flecha derecha
+                {
+                    Derecha();
+                }break;
+            case 80:///Flecha abajo
+                {
+                    Abajo();
+                }break;
+            case 27:///Tecla Escape
+                {
+                    return;
+                }break;
+            case 13:///Tecla Enter
+                {
+                    return;
+                }break;
+            default:
+                {
+
+                }break;
+        }
+    }
 }

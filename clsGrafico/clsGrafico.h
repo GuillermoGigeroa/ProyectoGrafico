@@ -1,6 +1,8 @@
 #ifndef CLSGRAFICO_H
 #define CLSGRAFICO_H
 
+const unsigned short int COLUMNAS = 15;
+const unsigned short int FILAS = 10;
 
 class clsGrafico
 {
@@ -21,6 +23,9 @@ class clsGrafico
         void Dibujar();
         void Dibujar(char a);
 
+        ///Función para detectar teclado
+        void DetectarTeclado();
+
         ///Funciones de control
         void Arriba();
         void Arriba(int cant);
@@ -32,13 +37,13 @@ class clsGrafico
         void Derecha(int cant);
 
         ///Auxiliares
-        void CompletarCadena(char cuadrado[10][15]);
-        void CompletarCadena(char cuadrado[10][15], char a);
-        void Escribir(char cuadrado[10][15]);
+        void CompletarCadena(char cuadrado[FILAS][COLUMNAS]);
+        void CompletarCadena(char cuadrado[FILAS][COLUMNAS], char a);
+        void Escribir(char cuadrado[FILAS][COLUMNAS]);
         void Esperar(int ms);
     private:
         int posX, posY, velocidadAnimacion;
-        char cuadrado[10][15];
+        char cuadrado[FILAS][COLUMNAS];
 };
 
 #endif // CLSGRAFICO_H
