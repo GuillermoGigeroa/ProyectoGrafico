@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1579708126 source:c:\users\servicios11\documents\graficos1\clsgrafico\clsgrafico.cpp
+	"clsGrafico.h"
+	"clsHelper.h"
+	<cstdlib>
+	<iostream>
+	<iomanip>
+
+1579708110 c:\users\servicios11\documents\graficos1\clsgrafico\clsgrafico.h
+
+1579707843 source:c:\users\servicios11\documents\graficos1\main.cpp
+	<iostream>
+	"clsGrafico.h"
+	"clsHelper.h"
+
+1579707511 source:c:\users\servicios11\documents\graficos1\clshelper\clshelper.cpp
+	"clsHelper.h"
+	<iostream>
+	<iomanip>
+	<windows.h>
+
+1579707667 c:\users\servicios11\documents\graficos1\clshelper\clshelper.h
+
