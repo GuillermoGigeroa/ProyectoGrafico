@@ -1,19 +1,18 @@
 #include "clsGrafico.h"
-#include "clsHelper.h"
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
+#include <windows.h>
 using namespace std;
 using std::setw;
 using std::left;
 //10x15
 clsGrafico::clsGrafico(int x, int y, int vel)
 {
-    clsHelper help;
     SetX(x);
     SetY(y);
     SetVelocidad(vel);
-    help.CompletarCadena(cuadrado);
+    CompletarCadena(cuadrado);
 }
 
 void clsGrafico::Dibujar()
@@ -54,7 +53,7 @@ void clsGrafico::Dibujar(char a)
 
 void clsGrafico::Arriba()
 {
-    clsHelper h;    if(GetX()-1 < 0)
+    if(GetX()-1 < 0)
     {
         SetX(0);
     }
@@ -62,7 +61,7 @@ void clsGrafico::Arriba()
     {
         SetY(GetX()-1);
     }
-    h.Esperar(GetVelocidad());
+    Esperar(GetVelocidad());
     Dibujar();
 }
 
@@ -70,7 +69,7 @@ void clsGrafico::Arriba(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        clsHelper h;        if(GetX()-1 < 0)
+        if(GetX()-1 < 0)
         {
             SetX(0);
         }
@@ -78,14 +77,13 @@ void clsGrafico::Arriba(int cant)
         {
             SetX(GetX()-1);
         }
-        h.Esperar(GetVelocidad());
+        Esperar(GetVelocidad());
         Dibujar();
     }
 }
 
 void clsGrafico::Abajo()
 {
-    clsHelper h;
     if(GetX()+1 > 9)
     {
         SetX(9);
@@ -94,7 +92,7 @@ void clsGrafico::Abajo()
     {
         SetX(GetX()+1);
     }
-    h.Esperar(GetVelocidad());
+    Esperar(GetVelocidad());
     Dibujar();
 }
 
@@ -102,7 +100,6 @@ void clsGrafico::Abajo(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        clsHelper h;
         if(GetX()+1 > 9)
         {
             SetX(9);
@@ -111,14 +108,13 @@ void clsGrafico::Abajo(int cant)
         {
             SetX(GetX()+1);
         }
-        h.Esperar(GetVelocidad());
+        Esperar(GetVelocidad());
         Dibujar();
     }
 }
 
 void clsGrafico::Derecha()
 {
-    clsHelper h;
     if(GetY()+1 > 14)
     {
         SetY(14);
@@ -127,7 +123,7 @@ void clsGrafico::Derecha()
     {
         SetY(GetY()+1);
     }
-    h.Esperar(GetVelocidad());
+    Esperar(GetVelocidad());
     Dibujar();
 }
 
@@ -135,7 +131,6 @@ void clsGrafico::Derecha(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        clsHelper h;
         if(GetY()+1 > 14)
         {
             SetY(14);
@@ -144,14 +139,14 @@ void clsGrafico::Derecha(int cant)
         {
             SetY(GetY()+1);
         }
-        h.Esperar(GetVelocidad());
+        Esperar(GetVelocidad());
         Dibujar();
     }
 }
 
 void clsGrafico::Izquierda()
 {
-    clsHelper h;    if(GetY()-1 < 0)
+    if(GetY()-1 < 0)
     {
         SetY(0);
     }
@@ -159,7 +154,7 @@ void clsGrafico::Izquierda()
     {
         SetY(GetY()-1);
     }
-    h.Esperar(GetVelocidad());
+    Esperar(GetVelocidad());
     Dibujar();
 }
 
@@ -167,7 +162,7 @@ void clsGrafico::Izquierda(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        clsHelper h;        if(GetY()-1 < 0)
+        if(GetY()-1 < 0)
         {
             SetY(0);
         }
@@ -175,7 +170,50 @@ void clsGrafico::Izquierda(int cant)
         {
             SetY(GetY()-1);
         }
-        h.Esperar(GetVelocidad());
+        Esperar(GetVelocidad());
         Dibujar();
     }
+}
+
+void clsGrafico::CompletarCadena(char cuadrado[10][15])
+{
+    for(int x = 0; x < 10; x++)
+    {
+        for(int y = 0; y < 15; y++)
+        {
+            cuadrado[x][y] = ' ';
+        }
+        cuadrado[x][14] = '\0';
+    }
+}
+
+void clsGrafico::CompletarCadena(char cuadrado[10][15], char a)
+{
+    for(int x = 0; x < 10; x++)
+    {
+        for(int y = 0; y < 15; y++)
+        {
+            cuadrado[x][y] = a;
+        }
+        cuadrado[x][14] = '\0';
+    }
+}
+
+void clsGrafico::Escribir(char cuadrado[10][15])
+{
+    cout<<endl<<endl<<endl<<endl;
+    for(int x = 0; x < 10; x++)
+    {
+        cout<<setw(30)<<left<<' ';
+        for(int y = 0; y < 15; y++)
+        {
+            cout<<cuadrado[x][y];
+        }
+        cout<<endl;
+    }
+}
+
+void clsGrafico::Esperar(int ms)
+{
+    Sleep(ms);
 }

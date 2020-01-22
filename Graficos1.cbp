@@ -38,8 +38,6 @@
 		</Compiler>
 		<Unit filename="clsGrafico/clsGrafico.cpp" />
 		<Unit filename="clsGrafico/clsGrafico.h" />
-		<Unit filename="clsHelper/clsHelper.cpp" />
-		<Unit filename="clsHelper/clsHelper.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
