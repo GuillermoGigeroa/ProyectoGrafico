@@ -57,28 +57,63 @@ void clsGrafico::Arriba()
     clsHelper h;    if(GetX()-1 < 0)
     {
         SetX(0);
-        h.Esperar(GetVelocidad());
-        Dibujar();
-        return;
     }
-    SetY(GetY()-1);
+    else
+    {
+        SetY(GetX()-1);
+    }
     h.Esperar(GetVelocidad());
     Dibujar();
+}
+
+void clsGrafico::Arriba(int cant)
+{
+    for(int x = 0; x < cant; x++)
+    {
+        clsHelper h;        if(GetX()-1 < 0)
+        {
+            SetX(0);
+        }
+        else
+        {
+            SetX(GetX()-1);
+        }
+        h.Esperar(GetVelocidad());
+        Dibujar();
+    }
 }
 
 void clsGrafico::Abajo()
 {
     clsHelper h;
-    if(GetX()+1 > 10)
+    if(GetX()+1 > 9)
     {
         SetX(9);
-        h.Esperar(GetVelocidad());
-        Dibujar();
-        return;
     }
-    SetX(GetX()+1);
+    else
+    {
+        SetX(GetX()+1);
+    }
     h.Esperar(GetVelocidad());
     Dibujar();
+}
+
+void clsGrafico::Abajo(int cant)
+{
+    for(int x = 0; x < cant; x++)
+    {
+        clsHelper h;
+        if(GetX()+1 > 9)
+        {
+            SetX(9);
+        }
+        else
+        {
+            SetX(GetX()+1);
+        }
+        h.Esperar(GetVelocidad());
+        Dibujar();
+    }
 }
 
 void clsGrafico::Derecha()
@@ -87,13 +122,31 @@ void clsGrafico::Derecha()
     if(GetY()+1 > 14)
     {
         SetY(14);
-        h.Esperar(GetVelocidad());
-        Dibujar();
-        return;
     }
-    SetY(GetY()+1);
+    else
+    {
+        SetY(GetY()+1);
+    }
     h.Esperar(GetVelocidad());
     Dibujar();
+}
+
+void clsGrafico::Derecha(int cant)
+{
+    for(int x = 0; x < cant; x++)
+    {
+        clsHelper h;
+        if(GetY()+1 > 14)
+        {
+            SetY(14);
+        }
+        else
+        {
+            SetY(GetY()+1);
+        }
+        h.Esperar(GetVelocidad());
+        Dibujar();
+    }
 }
 
 void clsGrafico::Izquierda()
@@ -101,11 +154,28 @@ void clsGrafico::Izquierda()
     clsHelper h;    if(GetY()-1 < 0)
     {
         SetY(0);
-        h.Esperar(GetVelocidad());
-        Dibujar();
-        return;
     }
-    SetY(GetY()-1);
+    else
+    {
+        SetY(GetY()-1);
+    }
     h.Esperar(GetVelocidad());
     Dibujar();
+}
+
+void clsGrafico::Izquierda(int cant)
+{
+    for(int x = 0; x < cant; x++)
+    {
+        clsHelper h;        if(GetY()-1 < 0)
+        {
+            SetY(0);
+        }
+        else
+        {
+            SetY(GetY()-1);
+        }
+        h.Esperar(GetVelocidad());
+        Dibujar();
+    }
 }

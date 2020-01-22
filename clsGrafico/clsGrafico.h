@@ -16,9 +16,13 @@ class clsGrafico
         void Dibujar();
         void Dibujar(char a);
         void Arriba();
+        void Arriba(int cant);
         void Abajo();
+        void Abajo(int cant);
         void Izquierda();
+        void Izquierda(int cant);
         void Derecha();
+        void Derecha(int cant);
     private:
         int posX, posY, velocidadAnimacion;
         char cuadrado[10][15];
