@@ -14,34 +14,19 @@ clsGrafico::clsGrafico(int x, int y, int vel)
     SetX(x);
     SetY(y);
     SetVelocidad(vel);
-    CompletarCadena(cuadrado, ' ');
+    CompletarCadena(cuadrado);
+    Dibujar();
 }
 
 void clsGrafico::Dibujar()
 {
-    system("cls");
-    cout<<setw(30)<<left<<' '<<" GigeroaBlack"<<endl<<endl<<endl;
+    char a = '0';
+    system("cls || clear");
+    cout<<setw(30)<<left<<' '<<" GigeroaBlack"<<endl;
+    LineaInicial();
     for(int x = 0; x < FILAS; x++)
     {
-        cout<<setw(30)<<left<<' ';
-        for(int y = 0; y < COLUMNAS; y++)
-        {
-            if(x == GetX() && y == GetY())
-                cout<<'0';
-            else
-                cout<<cuadrado[x][y];
-        }
-        cout<<endl;
-    }
-}
-
-void clsGrafico::Dibujar(char a)
-{
-    system("cls");
-    cout<<endl<<endl<<endl<<endl;
-    for(int x = 0; x < FILAS; x++)
-    {
-        cout<<setw(30)<<left<<' ';
+        cout<<setw(MARGEN_IZQUIERDO)<<left<<'|';///FILA DE RAYAS AL PRINCIPIO
         for(int y = 0; y < COLUMNAS; y++)
         {
             if(x == GetX() && y == GetY())
@@ -49,8 +34,9 @@ void clsGrafico::Dibujar(char a)
             else
                 cout<<cuadrado[x][y];
         }
-        cout<<endl;
+        cout<<'|'<<endl;
     }
+    LineaFinal();
 }
 
 void clsGrafico::Arriba()
@@ -117,9 +103,9 @@ void clsGrafico::Abajo(int cant)
 
 void clsGrafico::Derecha()
 {
-    if(GetY()+1 > COLUMNAS - 1)
+    if(GetY()+1 > COLUMNAS - 2)
     {
-        SetY(COLUMNAS - 1);
+        SetY(COLUMNAS - 2);
     }
     else
     {
@@ -133,9 +119,9 @@ void clsGrafico::Derecha(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        if(GetY()+1 > COLUMNAS - 1)
+        if(GetY()+1 > COLUMNAS - 2)
         {
-            SetY(COLUMNAS);
+            SetY(COLUMNAS - 2);
         }
         else
         {
@@ -203,7 +189,7 @@ void clsGrafico::CompletarCadena(char cuadrado[FILAS][COLUMNAS], char a)
 
 void clsGrafico::Escribir(char cuadrado[FILAS][COLUMNAS])
 {
-    cout<<endl<<endl<<endl<<endl;
+    cout<<endl<<endl;
     for(int x = 0; x < FILAS; x++)
     {
         cout<<setw(30)<<left<<' ';
@@ -263,4 +249,30 @@ void clsGrafico::DetectarTeclado()
                 }break;
         }
     }
+}
+
+void clsGrafico::LineaInicial()
+{
+    cout<<' ';
+    for(int i = 0; i < COLUMNAS + 1; i++)
+    {
+        cout<<'_';
+    }
+    cout<<endl<<'|';
+    int i;
+    for(i = 0; i < COLUMNAS + 1; i++)
+    {
+        cout<<' ';
+    }
+    cout<<'|'<<endl;
+}
+
+void clsGrafico::LineaFinal()
+{
+    cout<<'|';
+    for(int i = 0; i < COLUMNAS + 1; i++)
+    {
+        cout<<'_';
+    }
+    cout<<'|'<<endl;
 }

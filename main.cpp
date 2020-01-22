@@ -7,8 +7,7 @@ using namespace std;
 
 int main()
 {
-    clsGrafico g1(0,0,30);
-    g1.Dibujar();
+    clsGrafico g1(0,0,5);
     g1.DetectarTeclado();
     return 0;
 }

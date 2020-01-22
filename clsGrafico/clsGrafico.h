@@ -1,12 +1,14 @@
 #ifndef CLSGRAFICO_H
 #define CLSGRAFICO_H
 
-const unsigned short int COLUMNAS = 15;
-const unsigned short int FILAS = 10;
+const unsigned short int COLUMNAS = 3*25;
+const unsigned short int FILAS = 2*10;
+const unsigned short int MARGEN_IZQUIERDO = 2;
 
 class clsGrafico
 {
     public:
+        ///Constructor
         clsGrafico(int x = 0, int y = 0, int vel = 5);
 
         ///Gets
@@ -21,7 +23,8 @@ class clsGrafico
 
         ///Funciones gráficas
         void Dibujar();
-        void Dibujar(char a);
+        void LineaInicial();
+        void LineaFinal();
 
         ///Función para detectar teclado
         void DetectarTeclado();
