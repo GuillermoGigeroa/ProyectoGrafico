@@ -59,7 +59,7 @@ void clsGrafico::Arriba()
     }
     else
     {
-        SetY(GetX()-1);
+        SetX(GetX()-1);
     }
     Esperar(GetVelocidad());
     Dibujar();
