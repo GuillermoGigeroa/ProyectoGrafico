@@ -1,4 +1,5 @@
 #include "clsGrafico.h"
+#include "clsPersistencia.h"
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -191,6 +192,8 @@ void clsGrafico::Esperar(int ms)
 void clsGrafico::DetectarTeclado()
 {
     ///int op;do{op=getch();printf("%i\n",op);}while(op != 174126541);return 0;
+    clsPersistencia save;
+    Dibujar();
     int op = 0;
     while (op != 174126541)
     {
@@ -221,13 +224,17 @@ void clsGrafico::DetectarTeclado()
                 {
                     Marcar();
                 }break;
-            case 13:///Tecla Enter
+            case 9:///Tecla Tab
                 {
                     if(GetModoLinea())
                         SetModoLinea(false);
                     else
                         SetModoLinea(true);
                     Dibujar();
+                }break;
+            case 13:///Tecla Enter
+                {
+                    save.Guardar(this);
                 }break;
             case 8:///Tecla Backspace
                 {
