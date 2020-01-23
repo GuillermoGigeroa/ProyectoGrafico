@@ -15,16 +15,23 @@ class clsGrafico
         int GetX(){return posX;}
         int GetY(){return posY;}
         int GetVelocidad(){return velocidadAnimacion;}
+        bool GetModoLinea(){return modoLinea;}
+        bool GetModoAnimado(){return modoAnimado;}
+        char GetCaracter(){return caracterParaEscribir;}
 
         ///Sets
         void SetX(int x){posX = x;}
         void SetY(int y){posY = y;}
         void SetVelocidad(int v){velocidadAnimacion = v;}
+        void SetModoLinea(bool asi){modoLinea = asi;}
+        void SetModoAnimado(bool asi){modoAnimado = asi;}
+        void SetCaracter(char a){caracterParaEscribir = a;}
 
         ///Funciones gráficas
         void Dibujar();
         void LineaInicial();
         void LineaFinal();
+        void Marcar();
 
         ///Función para detectar teclado
         void DetectarTeclado();
@@ -40,13 +47,14 @@ class clsGrafico
         void Derecha(int cant);
 
         ///Auxiliares
-        void CompletarCadena(char cuadrado[FILAS][COLUMNAS]);
-        void CompletarCadena(char cuadrado[FILAS][COLUMNAS], char a);
+        void CompletarMatriz(char cuadrado[FILAS][COLUMNAS]);
+        void CompletarMatriz(char cuadrado[FILAS][COLUMNAS], char a);
         void Escribir(char cuadrado[FILAS][COLUMNAS]);
         void Esperar(int ms);
     private:
         int posX, posY, velocidadAnimacion;
-        char cuadrado[FILAS][COLUMNAS];
+        char cuadrado[FILAS][COLUMNAS], caracterParaEscribir;
+        bool modoLinea, modoAnimado;
 };
 
 #endif // CLSGRAFICO_H
