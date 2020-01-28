@@ -254,53 +254,69 @@ void clsGrafico::DetectarTeclado()
                     Dibujar();
                 }break;
             case 120:///Tecla x
+            case 88:///Tecla x
                 {
                     SetCaracter('X');
                     Dibujar();
                 }break;
             case 49:///Tecla numero 1
                 {
-                    SetCaracter('1');
+                    SetColor(1);
+                    ColorDeConsola(1);
                     Dibujar();
                 }break;
             case 50:///Tecla numero 2
                 {
-                    SetCaracter('2');
+                    SetColor(2);
+                    ColorDeConsola(2);
                     Dibujar();
                 }break;
             case 51:///Tecla numero 3
                 {
-                    SetCaracter('3');
+                    SetColor(3);
+                    ColorDeConsola(3);
                     Dibujar();
                 }break;
             case 52:///Tecla numero 4
                 {
-                    SetCaracter('4');
+                    SetColor(4);
+                    ColorDeConsola(4);
                     Dibujar();
                 }break;
             case 53:///Tecla numero 5
                 {
-                    SetCaracter('5');
+                    SetColor(5);
+                    ColorDeConsola(5);
                     Dibujar();
                 }break;
             case 54:///Tecla numero 6
                 {
-                    SetCaracter('6');
+                    SetColor(6);
+                    ColorDeConsola(6);
                     Dibujar();
                 }break;
             case 55:///Tecla numero 7
                 {
-                    SetCaracter('7');
+                    SetColor(7);
+                    ColorDeConsola(7);
                     Dibujar();
                 }break;
             case 56:///Tecla numero 8
                 {
-                    SetCaracter('8');
+                    SetColor(8);
+                    ColorDeConsola(8);
+                    Dibujar();
+                }break;
+            case 57:///Tecla numero 9
+                {
+                    SetColor(9);
+                    ColorDeConsola(9);
                     Dibujar();
                 }break;
             case 48:///Tecla numero 0
                 {
-                    SetCaracter('0');
+                    SetColor(0);
+                    ColorDeConsola(0);
                     Dibujar();
                 }break;
             default:
@@ -308,6 +324,65 @@ void clsGrafico::DetectarTeclado()
 
                 }break;
         }
+    }
+}
+
+void clsGrafico::ColorDeConsola(int num)
+{
+    switch (num)
+    {
+    case 1:
+        {
+            strcpy(colorConsola,"color 0a");
+            system(colorConsola);
+        }break;
+    case 2:
+        {
+            strcpy(colorConsola,"color 0b");
+            system(colorConsola);
+        }break;
+    case 3:
+        {
+            strcpy(colorConsola,"color 0c");
+            system(colorConsola);
+        }break;
+    case 4:
+        {
+            strcpy(colorConsola,"color 0d");
+            system(colorConsola);
+        }break;
+    case 5:
+        {
+            strcpy(colorConsola,"color 0e");
+            system(colorConsola);
+        }break;
+    case 6:
+        {
+            strcpy(colorConsola,"color 0f");
+            system(colorConsola);
+        }break;
+    case 7:
+        {
+            strcpy(colorConsola,"color f0");
+            system(colorConsola);
+        }break;
+    case 8:
+        {
+            strcpy(colorConsola,"color f9");
+            system(colorConsola);
+        }break;
+    case 9:
+        {
+            strcpy(colorConsola,"color fc");
+            system(colorConsola);
+        }break;
+    case 0:
+        {
+            strcpy(colorConsola,"color e0");
+            system(colorConsola);
+        }break;
+    default:
+        {}break;
     }
 }
 

@@ -7,6 +7,10 @@ bool clsPersistencia::Cargar(clsGrafico *grafico)
     p = fopen("ArchivoDeGuardado.gigeroa","rb");
     if(p == NULL) return false;
     fread(&grafico,sizeof(clsGrafico),1,p);
+    if(grafico->GetColor() < 0 && grafico->GetColor() > 9)
+        grafico->ColorDeConsola(0);
+    else
+        grafico->ColorDeConsola(grafico->GetColor());
     fclose(p);
     return true;
 }
