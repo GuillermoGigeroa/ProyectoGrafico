@@ -19,7 +19,7 @@ clsGrafico::clsGrafico(int x, int y, int vel)
         SetVelocidad(vel);
     else
         SetModoAnimado(false);
-    CompletarMatriz(cuadrado);
+    CompletarMatriz();
     SetModoLinea(false);
     Dibujar();
 }
@@ -53,18 +53,22 @@ void clsGrafico::Dibujar()
         Marcar();
 }
 
-void clsGrafico::Arriba()//TODO Hacer que se pueda usar con un while, poniendo un booleano
+bool clsGrafico::Arriba()//TODO Hacer que se pueda usar con un while, poniendo un booleano
 {
+    bool continuar;
     if(GetX()-1 < 0)
     {
         SetX(0);
+        continuar = false;
     }
     else
     {
         SetX(GetX()-1);
+        continuar = true;
+        Esperar(GetVelocidad());
+        Dibujar();
     }
-    Esperar(GetVelocidad());
-    Dibujar();
+    return continuar;
 }
 
 void clsGrafico::Arriba(int cant)
@@ -75,18 +79,21 @@ void clsGrafico::Arriba(int cant)
     }
 }
 
-void clsGrafico::Abajo()//TODO Hacer que se pueda usar con un while, poniendo un booleano
+bool clsGrafico::Abajo()//TODO Hacer que se pueda usar con un while, poniendo un booleano
 {
+    bool continuar;
     if(GetX()+1 > FILAS - 1)
     {
         SetX(FILAS - 1);
+        continuar = false;
     }
     else
     {
         SetX(GetX()+1);
-    }
-    Esperar(GetVelocidad());
-    Dibujar();
+        continuar = true;
+        Esperar(GetVelocidad());
+        Dibujar();    }
+    return continuar;
 }
 
 void clsGrafico::Abajo(int cant)
@@ -97,18 +104,21 @@ void clsGrafico::Abajo(int cant)
     }
 }
 
-void clsGrafico::Derecha()//TODO Hacer que se pueda usar con un while, poniendo un booleano
+bool clsGrafico::Derecha()//TODO Hacer que se pueda usar con un while, poniendo un booleano
 {
+    bool continuar;
     if(GetY()+1 > COLUMNAS - 2)
     {
         SetY(COLUMNAS - 2);
+        continuar = false;
     }
     else
     {
         SetY(GetY()+1);
-    }
-    Esperar(GetVelocidad());
-    Dibujar();
+        continuar = true;
+        Esperar(GetVelocidad());
+        Dibujar();    }
+    return continuar;
 }
 
 void clsGrafico::Derecha(int cant)
@@ -119,18 +129,22 @@ void clsGrafico::Derecha(int cant)
     }
 }
 
-void clsGrafico::Izquierda()//TODO Hacer que se pueda usar con un while, poniendo un booleano
+bool clsGrafico::Izquierda()//TODO Hacer que se pueda usar con un while, poniendo un booleano
 {
+    bool continuar;
     if(GetY()-1 < 0)
     {
         SetY(0);
+        continuar = false;
     }
     else
     {
         SetY(GetY()-1);
+        continuar = true;
+        Esperar(GetVelocidad());
+        Dibujar();
     }
-    Esperar(GetVelocidad());
-    Dibujar();
+    return continuar;
 }
 
 void clsGrafico::Izquierda(int cant)
@@ -141,7 +155,7 @@ void clsGrafico::Izquierda(int cant)
     }
 }
 
-void clsGrafico::CompletarMatriz(char cuadrado[FILAS][COLUMNAS])
+void clsGrafico::CompletarMatriz()
 {
     for(int x = 0; x < FILAS; x++)
     {
@@ -153,7 +167,7 @@ void clsGrafico::CompletarMatriz(char cuadrado[FILAS][COLUMNAS])
     }
 }
 
-void clsGrafico::CompletarMatriz(char cuadrado[FILAS][COLUMNAS], char a)
+void clsGrafico::CompletarMatriz(char a)
 {
     for(int x = 0; x < FILAS; x++)
     {
@@ -234,7 +248,7 @@ void clsGrafico::DetectarTeclado()
                 }break;
             case 8:///Tecla Backspace
                 {
-                    CompletarMatriz(cuadrado);
+                    CompletarMatriz();
                     Dibujar();
                 }break;
             case 71:///Tecla Home
@@ -310,6 +324,26 @@ void clsGrafico::DetectarTeclado()
                     SetColor(0);
                     ColorDeConsola(0);
                     Dibujar();
+                }break;
+            case 97:///Tecla letra aA
+            case 65:
+                {
+                    AutoIzquierda();
+                }break;
+            case 115:///Tecla letra sS
+            case 83:
+                {
+                    AutoAbajo();
+                }break;
+            case 100:///Tecla letra dD
+            case 68:
+                {
+                    AutoDerecha();
+                }break;
+            case 119:///Tecla letra wW
+            case 87:
+                {
+                    AutoArriba();
                 }break;
             default:
                 {
@@ -424,4 +458,59 @@ void clsGrafico::Fin()
     SetX(FILAS-1);
     SetY(COLUMNAS-2);
     Dibujar();
+}
+
+bool clsGrafico::EstaMarcado()
+{
+    if(cuadrado[GetX()][GetY()] != ' ')
+        return true;
+    return false;
+}
+
+bool clsGrafico::EstaMarcadoArriba()
+{
+    if(cuadrado[GetX()-1][GetY()] != ' ')
+        return true;
+    return false;
+}
+
+bool clsGrafico::EstaMarcadoAbajo()
+{
+    if(cuadrado[GetX()+1][GetY()] != ' ')
+        return true;
+    return false;
+}
+
+bool clsGrafico::EstaMarcadoDerecha()
+{
+    if(cuadrado[GetX()][GetY()+1] != ' ')
+        return true;
+    return false;
+}
+
+bool clsGrafico::EstaMarcadoIzquierda()
+{
+    if(cuadrado[GetX()][GetY()-1] != ' ')
+        return true;
+    return false;
+}
+
+void clsGrafico::AutoArriba()
+{
+    while(Arriba() && !EstaMarcadoArriba());
+}
+
+void clsGrafico::AutoAbajo()
+{
+    while(Abajo() && !EstaMarcadoAbajo());
+}
+
+void clsGrafico::AutoDerecha()
+{
+    while(Derecha() && !EstaMarcadoDerecha());
+}
+
+void clsGrafico::AutoIzquierda()
+{
+    while(Izquierda() && !EstaMarcadoIzquierda());
 }

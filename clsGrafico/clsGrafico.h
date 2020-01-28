@@ -42,20 +42,31 @@ class clsGrafico
         void DetectarTeclado();
 
         ///Funciones de control
-        void Arriba();
+        bool Arriba();
         void Arriba(int cant);
-        void Abajo();
+        bool Abajo();
         void Abajo(int cant);
-        void Izquierda();
+        bool Izquierda();
         void Izquierda(int cant);
-        void Derecha();
+        bool Derecha();
         void Derecha(int cant);
         void Inicio();
         void Fin();
+        bool EstaMarcado();
+        bool EstaMarcadoArriba();
+        bool EstaMarcadoAbajo();
+        bool EstaMarcadoDerecha();
+        bool EstaMarcadoIzquierda();
+
+        ///Funciones de control automático
+        void AutoArriba();
+        void AutoAbajo();
+        void AutoDerecha();
+        void AutoIzquierda();
 
         ///Auxiliares
-        void CompletarMatriz(char cuadrado[FILAS][COLUMNAS]);
-        void CompletarMatriz(char cuadrado[FILAS][COLUMNAS], char a);
+        void CompletarMatriz();
+        void CompletarMatriz(char a);
         void Escribir(char cuadrado[FILAS][COLUMNAS]);
         void Esperar(int ms);
     private:

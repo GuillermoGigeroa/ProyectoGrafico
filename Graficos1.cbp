@@ -42,8 +42,6 @@
 		</Compiler>
 		<Unit filename="clsGrafico/clsGrafico.cpp" />
 		<Unit filename="clsGrafico/clsGrafico.h" />
-		<Unit filename="clsMovimiento/clsMovimiento.cpp" />
-		<Unit filename="clsMovimiento/clsMovimiento.h" />
 		<Unit filename="clsPersistencia/clsPersistencia.cpp" />
 		<Unit filename="clsPersistencia/clsPersistencia.h" />
 		<Unit filename="main.cpp" />
