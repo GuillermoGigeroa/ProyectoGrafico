@@ -1,8 +1,8 @@
 #ifndef CLSGRAFICO_H
 #define CLSGRAFICO_H
 
-const unsigned short int COLUMNAS = 3*25;
-const unsigned short int FILAS = 2*10;
+const unsigned short int COLUMNAS = 75;
+const unsigned short int FILAS = 20;
 const unsigned short int MARGEN_IZQUIERDO = 2;
 
 class clsGrafico
@@ -50,6 +50,8 @@ class clsGrafico
         void Izquierda(int cant);
         void Derecha();
         void Derecha(int cant);
+        void Inicio();
+        void Fin();
 
         ///Auxiliares
         void CompletarMatriz(char cuadrado[FILAS][COLUMNAS]);

@@ -16,6 +16,7 @@
 					<Add directory="clsGrafico" />
 					<Add directory="clsHelper" />
 					<Add directory="clsPersistencia" />
+					<Add directory="clsMovimiento" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -28,6 +29,7 @@
 					<Add directory="clsGrafico" />
 					<Add directory="clsHelper" />
 					<Add directory="clsPersistencia" />
+					<Add directory="clsMovimiento" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -40,6 +42,8 @@
 		</Compiler>
 		<Unit filename="clsGrafico/clsGrafico.cpp" />
 		<Unit filename="clsGrafico/clsGrafico.h" />
+		<Unit filename="clsMovimiento/clsMovimiento.cpp" />
+		<Unit filename="clsMovimiento/clsMovimiento.h" />
 		<Unit filename="clsPersistencia/clsPersistencia.cpp" />
 		<Unit filename="clsPersistencia/clsPersistencia.h" />
 		<Unit filename="main.cpp" />

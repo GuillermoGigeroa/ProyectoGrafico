@@ -53,12 +53,16 @@ void clsGrafico::Dibujar()
         Marcar();
 }
 
-void clsGrafico::Arriba()
+void clsGrafico::Arriba()//TODO Hacer que se pueda usar con un while, poniendo un booleano
 {
     if(GetX()-1 < 0)
+    {
         SetX(0);
+    }
     else
+    {
         SetX(GetX()-1);
+    }
     Esperar(GetVelocidad());
     Dibujar();
 }
@@ -67,21 +71,20 @@ void clsGrafico::Arriba(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        if(GetX()-1 < 0)
-            SetX(0);
-        else
-            SetX(GetX()-1);
-        Esperar(GetVelocidad());
-        Dibujar();
+        Arriba();
     }
 }
 
-void clsGrafico::Abajo()
+void clsGrafico::Abajo()//TODO Hacer que se pueda usar con un while, poniendo un booleano
 {
     if(GetX()+1 > FILAS - 1)
+    {
         SetX(FILAS - 1);
+    }
     else
+    {
         SetX(GetX()+1);
+    }
     Esperar(GetVelocidad());
     Dibujar();
 }
@@ -90,21 +93,20 @@ void clsGrafico::Abajo(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        if(GetX()+1 > FILAS - 1)
-            SetX(FILAS);
-        else
-            SetX(GetX()+1);
-        Esperar(GetVelocidad());
-        Dibujar();
+        Abajo();
     }
 }
 
-void clsGrafico::Derecha()
+void clsGrafico::Derecha()//TODO Hacer que se pueda usar con un while, poniendo un booleano
 {
     if(GetY()+1 > COLUMNAS - 2)
+    {
         SetY(COLUMNAS - 2);
+    }
     else
+    {
         SetY(GetY()+1);
+    }
     Esperar(GetVelocidad());
     Dibujar();
 }
@@ -113,21 +115,20 @@ void clsGrafico::Derecha(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        if(GetY()+1 > COLUMNAS - 2)
-            SetY(COLUMNAS - 2);
-        else
-            SetY(GetY()+1);
-        Esperar(GetVelocidad());
-        Dibujar();
+        Derecha();
     }
 }
 
-void clsGrafico::Izquierda()
+void clsGrafico::Izquierda()//TODO Hacer que se pueda usar con un while, poniendo un booleano
 {
     if(GetY()-1 < 0)
+    {
         SetY(0);
+    }
     else
+    {
         SetY(GetY()-1);
+    }
     Esperar(GetVelocidad());
     Dibujar();
 }
@@ -136,12 +137,7 @@ void clsGrafico::Izquierda(int cant)
 {
     for(int x = 0; x < cant; x++)
     {
-        if(GetY()-1 < 0)
-            SetY(0);
-        else
-            SetY(GetY()-1);
-        Esperar(GetVelocidad());
-        Dibujar();
+        Izquierda();
     }
 }
 
@@ -243,15 +239,11 @@ void clsGrafico::DetectarTeclado()
                 }break;
             case 71:///Tecla Home
                 {
-                    SetX(0);
-                    SetY(0);
-                    Dibujar();
+                    Inicio();
                 }break;
             case 79:///Tecla End
                 {
-                    SetX(FILAS-1);
-                    SetY(COLUMNAS-2);
-                    Dibujar();
+                    Fin();
                 }break;
             case 120:///Tecla x
             case 88:///Tecla x
@@ -418,4 +410,18 @@ void clsGrafico::Marcar()
         cuadrado[GetX()][GetY()] = ' ';
     else
         cuadrado[GetX()][GetY()] = GetCaracter();
+}
+
+void clsGrafico::Inicio()
+{
+    SetX(0);
+    SetY(0);
+    Dibujar();
+}
+
+void clsGrafico::Fin()
+{
+    SetX(FILAS-1);
+    SetY(COLUMNAS-2);
+    Dibujar();
 }
