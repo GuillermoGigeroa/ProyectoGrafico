@@ -9,14 +9,13 @@ class clsGrafico
 {
     public:
         ///Constructor
-        clsGrafico(int x = 0, int y = 0, int vel = 5);
+        clsGrafico(int x = 0, int y = 0);
+        void InicializarTodo(int x = 0, int y = 0);
 
         ///Gets
         int GetX(){return posX;}
         int GetY(){return posY;}
-        int GetVelocidad(){return velocidadAnimacion;}
         bool GetModoLinea(){return modoLinea;}
-        bool GetModoAnimado(){return modoAnimado;}
         char GetCaracter(){return caracterParaEscribir;}
         bool GetEstadoGuardado(){return seGuardo;}
         int GetColor(){return colorElegido;}
@@ -24,9 +23,7 @@ class clsGrafico
         ///Sets
         void SetX(int x){posX = x;}
         void SetY(int y){posY = y;}
-        void SetVelocidad(int v){velocidadAnimacion = v;}
         void SetModoLinea(bool asi){modoLinea = asi;}
-        void SetModoAnimado(bool asi){modoAnimado = asi;}
         void SetCaracter(char a){caracterParaEscribir = a;}
         void SetGuardado(bool a){seGuardo = a;}
         void SetColor(int num){colorElegido = num;}
@@ -36,23 +33,29 @@ class clsGrafico
         void LineaInicial();
         void LineaFinal();
         void Marcar();
-        void ColorDeConsola(int num);
+        void ColorDeConsola(int);
 
-        ///Función para detectar teclado
-        void DetectarTeclado();
+        ///Persistencia
+        bool Cargar();
+        bool Limpiar();
+        bool Guardar();
+
+        ///Función principal para iniciar
+        void IniciarJuego();
 
         ///Funciones de control
         bool Arriba();
-        void Arriba(int cant);
+        void Arriba(int);
         bool Abajo();
-        void Abajo(int cant);
+        void Abajo(int);
         bool Izquierda();
-        void Izquierda(int cant);
+        void Izquierda(int);
         bool Derecha();
-        void Derecha(int cant);
+        void Derecha(int);
         void Inicio();
         void Fin();
-        bool EstaMarcado();
+
+        ///Funciones de detección
         bool EstaMarcadoArriba();
         bool EstaMarcadoAbajo();
         bool EstaMarcadoDerecha();
@@ -66,13 +69,12 @@ class clsGrafico
 
         ///Auxiliares
         void CompletarMatriz();
-        void CompletarMatriz(char a);
-        void Escribir(char cuadrado[FILAS][COLUMNAS]);
-        void Esperar(int ms);
+        void CompletarMatriz(char);
+
     private:
-        int posX, posY, velocidadAnimacion, colorElegido;
+        int posX, posY, colorElegido;
         char cuadrado[FILAS][COLUMNAS], caracterParaEscribir, colorConsola[9];
-        bool modoLinea, modoAnimado, seGuardo;
+        bool modoLinea, seGuardo;
 };
 
 #endif // CLSGRAFICO_H

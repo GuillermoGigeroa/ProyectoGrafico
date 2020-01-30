@@ -1,5 +1,4 @@
 #include "clsGrafico.h"
-#include "clsPersistencia.h"
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -10,30 +9,49 @@ using namespace std;
 using std::setw;
 using std::left;
 
-clsGrafico::clsGrafico(int x, int y, int vel)
-{
+clsGrafico::clsGrafico(int x, int y){
+    InicializarTodo(x,y);
+}
+
+void clsGrafico::InicializarTodo(int x, int y){
     SetX(x);
     SetY(y);
     SetCaracter('X');
-    if(vel != 0)
-        SetVelocidad(vel);
-    else
-        SetModoAnimado(false);
+    SetColor(1);
     CompletarMatriz();
+    SetGuardado(false);
     SetModoLinea(false);
     Dibujar();
 }
 
-void clsGrafico::Dibujar()
-{
-    system("cls || clear");
+void clsGrafico::Dibujar(){
+    #ifdef __linux__
+        system("clear");
+    #elif _WIN32
+        system("cls");
+    #endif
+
     if(GetModoLinea())
     {
-        cout<<"   Modo linea activado    -    GigeroaBlack    -    Caracter a escribir: \'"<<GetCaracter()<<"\'"<<endl;
+        if(GetEstadoGuardado())
+        {
+            cout<<"   Modo linea activado   -   GigeroaBlack   -   Se ha guardado correctamente "<<endl;
+        }
+        else
+        {
+            cout<<"   Modo linea activado   -   GigeroaBlack   -                                "<<endl;
+        }
     }
     else
     {
-        cout<<"                          -    GigeroaBlack    -    Caracter a escribir: \'"<<GetCaracter()<<"\'"<<endl;
+        if(GetEstadoGuardado())
+        {
+            cout<<"                         -   GigeroaBlack   -   Se ha guardado correctamente "<<endl;
+        }
+        else
+        {
+            cout<<"                         -   GigeroaBlack   -                                "<<endl;
+        }
     }
     LineaInicial();
     for(int x = 0; x < FILAS; x++)
@@ -53,8 +71,7 @@ void clsGrafico::Dibujar()
         Marcar();
 }
 
-bool clsGrafico::Arriba()//TODO Hacer que se pueda usar con un while, poniendo un booleano
-{
+bool clsGrafico::Arriba(){
     bool continuar;
     if(GetX()-1 < 0)
     {
@@ -65,22 +82,19 @@ bool clsGrafico::Arriba()//TODO Hacer que se pueda usar con un while, poniendo u
     {
         SetX(GetX()-1);
         continuar = true;
-        Esperar(GetVelocidad());
         Dibujar();
     }
     return continuar;
 }
 
-void clsGrafico::Arriba(int cant)
-{
+void clsGrafico::Arriba(int cant){
     for(int x = 0; x < cant; x++)
     {
         Arriba();
     }
 }
 
-bool clsGrafico::Abajo()//TODO Hacer que se pueda usar con un while, poniendo un booleano
-{
+bool clsGrafico::Abajo(){
     bool continuar;
     if(GetX()+1 > FILAS - 1)
     {
@@ -91,21 +105,18 @@ bool clsGrafico::Abajo()//TODO Hacer que se pueda usar con un while, poniendo un
     {
         SetX(GetX()+1);
         continuar = true;
-        Esperar(GetVelocidad());
         Dibujar();    }
     return continuar;
 }
 
-void clsGrafico::Abajo(int cant)
-{
+void clsGrafico::Abajo(int cant){
     for(int x = 0; x < cant; x++)
     {
         Abajo();
     }
 }
 
-bool clsGrafico::Derecha()//TODO Hacer que se pueda usar con un while, poniendo un booleano
-{
+bool clsGrafico::Derecha(){
     bool continuar;
     if(GetY()+1 > COLUMNAS - 2)
     {
@@ -116,21 +127,18 @@ bool clsGrafico::Derecha()//TODO Hacer que se pueda usar con un while, poniendo 
     {
         SetY(GetY()+1);
         continuar = true;
-        Esperar(GetVelocidad());
         Dibujar();    }
     return continuar;
 }
 
-void clsGrafico::Derecha(int cant)
-{
+void clsGrafico::Derecha(int cant){
     for(int x = 0; x < cant; x++)
     {
         Derecha();
     }
 }
 
-bool clsGrafico::Izquierda()//TODO Hacer que se pueda usar con un while, poniendo un booleano
-{
+bool clsGrafico::Izquierda(){
     bool continuar;
     if(GetY()-1 < 0)
     {
@@ -141,22 +149,19 @@ bool clsGrafico::Izquierda()//TODO Hacer que se pueda usar con un while, poniend
     {
         SetY(GetY()-1);
         continuar = true;
-        Esperar(GetVelocidad());
         Dibujar();
     }
     return continuar;
 }
 
-void clsGrafico::Izquierda(int cant)
-{
+void clsGrafico::Izquierda(int cant){
     for(int x = 0; x < cant; x++)
     {
         Izquierda();
     }
 }
 
-void clsGrafico::CompletarMatriz()
-{
+void clsGrafico::CompletarMatriz(){
     for(int x = 0; x < FILAS; x++)
     {
         for(int y = 0; y < COLUMNAS; y++)
@@ -167,8 +172,7 @@ void clsGrafico::CompletarMatriz()
     }
 }
 
-void clsGrafico::CompletarMatriz(char a)
-{
+void clsGrafico::CompletarMatriz(char a){
     for(int x = 0; x < FILAS; x++)
     {
         for(int y = 0; y < COLUMNAS; y++)
@@ -179,30 +183,8 @@ void clsGrafico::CompletarMatriz(char a)
     }
 }
 
-void clsGrafico::Escribir(char cuadrado[FILAS][COLUMNAS])
-{
-    cout<<endl<<endl;
-    for(int x = 0; x < FILAS; x++)
-    {
-        cout<<setw(30)<<left<<' ';
-        for(int y = 0; y < COLUMNAS; y++)
-        {
-            cout<<cuadrado[x][y];
-        }
-        cout<<endl;
-    }
-}
-
-void clsGrafico::Esperar(int ms)
-{
-    if(GetModoAnimado())
-        Sleep(ms);
-}
-
-void clsGrafico::DetectarTeclado()
-{
+void clsGrafico::IniciarJuego(){
     ///int op;do{op=getch();printf("%i\n",op);}while(op != 174126541);return 0;
-    clsPersistencia save;
     Dibujar();
     int op = 0;
     while (op != 174126541)
@@ -212,19 +194,39 @@ void clsGrafico::DetectarTeclado()
         {
             case 72:///Flecha arriba
                 {
-                    Arriba();
+                    AutoArriba();
                 }break;
             case 75:///Flecha izquierda
                 {
-                    Izquierda();
+                    AutoIzquierda();
                 }break;
             case 77:///Flecha derecha
                 {
-                    Derecha();
+                    AutoDerecha();
                 }break;
             case 80:///Flecha abajo
                 {
+                    AutoAbajo();
+                }break;
+            case 97:///Tecla letra aA
+            case 65:
+                {
+                    Izquierda();
+                }break;
+            case 115:///Tecla letra sS
+            case 83:
+                {
                     Abajo();
+                }break;
+            case 100:///Tecla letra dD
+            case 68:
+                {
+                    Derecha();
+                }break;
+            case 119:///Tecla letra wW
+            case 87:
+                {
+                    Arriba();
                 }break;
             case 27:///Tecla Escape
                 {
@@ -232,6 +234,7 @@ void clsGrafico::DetectarTeclado()
                 }break;
             case 32:///Tecla Espacio
                 {
+                    Guardar();
                     Marcar();
                 }break;
             case 9:///Tecla Tab
@@ -244,7 +247,12 @@ void clsGrafico::DetectarTeclado()
                 }break;
             case 13:///Tecla Enter
                 {
-                    save.Guardar(this);
+                    if(Guardar())
+                    {
+                        SetGuardado(true);
+                        Dibujar();
+                        SetGuardado(false);
+                    }
                 }break;
             case 8:///Tecla Backspace
                 {
@@ -262,7 +270,10 @@ void clsGrafico::DetectarTeclado()
             case 120:///Tecla x
             case 88:///Tecla x
                 {
-                    SetCaracter('X');
+                    if(GetCaracter() == 'X')
+                        SetCaracter('0');
+                    else
+                        SetCaracter('X');
                     Dibujar();
                 }break;
             case 49:///Tecla numero 1
@@ -325,26 +336,6 @@ void clsGrafico::DetectarTeclado()
                     ColorDeConsola(0);
                     Dibujar();
                 }break;
-            case 97:///Tecla letra aA
-            case 65:
-                {
-                    AutoIzquierda();
-                }break;
-            case 115:///Tecla letra sS
-            case 83:
-                {
-                    AutoAbajo();
-                }break;
-            case 100:///Tecla letra dD
-            case 68:
-                {
-                    AutoDerecha();
-                }break;
-            case 119:///Tecla letra wW
-            case 87:
-                {
-                    AutoArriba();
-                }break;
             default:
                 {
 
@@ -353,67 +344,68 @@ void clsGrafico::DetectarTeclado()
     }
 }
 
-void clsGrafico::ColorDeConsola(int num)
-{
-    switch (num)
-    {
-    case 1:
+void clsGrafico::ColorDeConsola(int num){
+    #ifdef __linux__
+    #elif _WIN32
+        switch (num)
         {
-            strcpy(colorConsola,"color 0a");
-            system(colorConsola);
-        }break;
-    case 2:
-        {
-            strcpy(colorConsola,"color 0b");
-            system(colorConsola);
-        }break;
-    case 3:
-        {
-            strcpy(colorConsola,"color 0c");
-            system(colorConsola);
-        }break;
-    case 4:
-        {
-            strcpy(colorConsola,"color 0d");
-            system(colorConsola);
-        }break;
-    case 5:
-        {
-            strcpy(colorConsola,"color 0e");
-            system(colorConsola);
-        }break;
-    case 6:
-        {
-            strcpy(colorConsola,"color 0f");
-            system(colorConsola);
-        }break;
-    case 7:
-        {
-            strcpy(colorConsola,"color f0");
-            system(colorConsola);
-        }break;
-    case 8:
-        {
-            strcpy(colorConsola,"color f9");
-            system(colorConsola);
-        }break;
-    case 9:
-        {
-            strcpy(colorConsola,"color fc");
-            system(colorConsola);
-        }break;
-    case 0:
-        {
-            strcpy(colorConsola,"color e0");
-            system(colorConsola);
-        }break;
-    default:
-        {}break;
-    }
+        case 1:
+            {
+                strcpy(colorConsola,"color 0a");
+                system(colorConsola);
+            }break;
+        case 2:
+            {
+                strcpy(colorConsola,"color 0b");
+                system(colorConsola);
+            }break;
+        case 3:
+            {
+                strcpy(colorConsola,"color 0c");
+                system(colorConsola);
+            }break;
+        case 4:
+            {
+                strcpy(colorConsola,"color 0d");
+                system(colorConsola);
+            }break;
+        case 5:
+            {
+                strcpy(colorConsola,"color 0e");
+                system(colorConsola);
+            }break;
+        case 6:
+            {
+                strcpy(colorConsola,"color 0f");
+                system(colorConsola);
+            }break;
+        case 7:
+            {
+                strcpy(colorConsola,"color f0");
+                system(colorConsola);
+            }break;
+        case 8:
+            {
+                strcpy(colorConsola,"color f9");
+                system(colorConsola);
+            }break;
+        case 9:
+            {
+                strcpy(colorConsola,"color fc");
+                system(colorConsola);
+            }break;
+        case 0:
+            {
+                strcpy(colorConsola,"color e0");
+                system(colorConsola);
+            }break;
+        default:
+            {}break;
+        }
+    #endif
 }
 
-void clsGrafico::LineaInicial()
-{
+void clsGrafico::LineaInicial(){
     cout<<' ';
     for(int i = 0; i < COLUMNAS + 1; i++)
     {
@@ -428,8 +420,7 @@ void clsGrafico::LineaInicial()
     cout<<'|'<<endl;
 }
 
-void clsGrafico::LineaFinal()
-{
+void clsGrafico::LineaFinal(){
     cout<<'|';
     for(int i = 0; i < COLUMNAS + 1; i++)
     {
@@ -438,79 +429,93 @@ void clsGrafico::LineaFinal()
     cout<<'|'<<endl;
 }
 
-void clsGrafico::Marcar()
-{
+void clsGrafico::Marcar(){
     if(cuadrado[GetX()][GetY()] == GetCaracter())
         cuadrado[GetX()][GetY()] = ' ';
     else
         cuadrado[GetX()][GetY()] = GetCaracter();
 }
 
-void clsGrafico::Inicio()
-{
+void clsGrafico::Inicio(){
     SetX(0);
     SetY(0);
     Dibujar();
 }
 
-void clsGrafico::Fin()
-{
+void clsGrafico::Fin(){
     SetX(FILAS-1);
     SetY(COLUMNAS-2);
     Dibujar();
 }
 
-bool clsGrafico::EstaMarcado()
-{
-    if(cuadrado[GetX()][GetY()] != ' ')
-        return true;
-    return false;
-}
-
-bool clsGrafico::EstaMarcadoArriba()
-{
+bool clsGrafico::EstaMarcadoArriba(){
     if(cuadrado[GetX()-1][GetY()] != ' ')
         return true;
     return false;
 }
 
-bool clsGrafico::EstaMarcadoAbajo()
-{
+bool clsGrafico::EstaMarcadoAbajo(){
     if(cuadrado[GetX()+1][GetY()] != ' ')
         return true;
     return false;
 }
 
-bool clsGrafico::EstaMarcadoDerecha()
-{
+bool clsGrafico::EstaMarcadoDerecha(){
     if(cuadrado[GetX()][GetY()+1] != ' ')
         return true;
     return false;
 }
 
-bool clsGrafico::EstaMarcadoIzquierda()
-{
+bool clsGrafico::EstaMarcadoIzquierda(){
     if(cuadrado[GetX()][GetY()-1] != ' ')
         return true;
     return false;
 }
 
-void clsGrafico::AutoArriba()
-{
+void clsGrafico::AutoArriba(){
     while(Arriba() && !EstaMarcadoArriba());
 }
 
-void clsGrafico::AutoAbajo()
-{
+void clsGrafico::AutoAbajo(){
     while(Abajo() && !EstaMarcadoAbajo());
 }
 
-void clsGrafico::AutoDerecha()
-{
+void clsGrafico::AutoDerecha(){
     while(Derecha() && !EstaMarcadoDerecha());
 }
 
-void clsGrafico::AutoIzquierda()
-{
+void clsGrafico::AutoIzquierda(){
     while(Izquierda() && !EstaMarcadoIzquierda());
+}
+
+bool clsGrafico::Cargar(){
+    FILE *p;
+    p = fopen("ArchivoDeGuardado.gigeroa","rb");
+    if(p == NULL) return false;
+    fread(this,sizeof(clsGrafico),1,p);
+    if(GetColor() < 0 && GetColor() > 9)
+        ColorDeConsola(0);
+    else
+        ColorDeConsola(GetColor());
+    fclose(p);
+    return true;
+}
+
+bool clsGrafico::Limpiar(){
+    FILE *p;
+    p = fopen("ArchivoDeGuardado.gigeroa","wb");
+    if(p == NULL) return false;
+    fclose(p);
+    return true;
+}
+
+bool clsGrafico::Guardar(){
+    FILE *p;
+    p = fopen("ArchivoDeGuardado.gigeroa","wb");
+    if(p == NULL) return false;
+    fclose(p);
+    p = fopen("ArchivoDeGuardado.gigeroa","ab");
+    fwrite(this,sizeof(clsGrafico),1,p);
+    fclose(p);
+    return true;
 }
